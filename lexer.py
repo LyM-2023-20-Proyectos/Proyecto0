@@ -12,7 +12,7 @@ Módulo de análisis léxico del proyecto 0 del curso ISIS-1106: Lenguaje y Máq
 #----------------------------------------------------
 # TOKENS
 #----------------------------------------------------
-import tokens
+import ProyecTokens
 """
 Token: {Tipo, valor opcional}
 Clase del objeto token:
@@ -31,4 +31,26 @@ class token:
 #----------------------------------------------------
 # LEXER
 #----------------------------------------------------
+class Lexer:
+    def __init__(self,text):
+        self.text = text
+        # Variables para recorrer texto:
+        self.pos = -1
+        self.current_char = None
+        self.advance()
 
+    # Método para avanzar a lo largo del texto:
+    def advance(self):
+        self.pos += 1
+        self.current_char = self.text[pos] if self.pos< len(self.text) else None
+        
+    def makeTokens(self):
+        tokens = []
+        while self.current_char != None:
+            # Ignorar espacios, identación y saltos de línea
+            if self.current_char in ' \t':
+                self.advance()
+
+            elif self.current_char in ProyecTokens.DIGITS:
+                tokens
+                self.advance()
