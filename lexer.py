@@ -18,7 +18,7 @@ Token: {Tipo, valor opcional}
 Clase del objeto token:
 """
 class token:
-    def __init__(self,type_, value):
+    def __init__(self,type_, value = None):
         self.type = type_
         self.value = value
 
@@ -121,15 +121,14 @@ class Lexer:
                 return [], IllegalCharError(pos_start, self.pos, "'" + char + "'")
 
         return tokens, None
-
-        return tokens
     
     # Dado que la grilla es discreta, no consideraremos tokens para puntos o float numbers
     def makeNumber(self):
         num_str = ''
         while self.current_char != None and self.current_char in ProyecTokens.DIGITS:
             num_str += self.current_char
-            return token(ProyecTokens.T_int,int(num_str))
+        self.advance()
+        return token(ProyecTokens.T_int,int(num_str))
         
 #----------------------------------------------------
 # Ejecutar
