@@ -52,5 +52,34 @@ class Lexer:
                 self.advance()
 
             elif self.current_char in ProyecTokens.DIGITS:
-                tokens
+                tokens.append(self.makeNumber())
                 self.advance()
+
+            elif self.current_char == '{':
+                tokens.append(ProyecTokens.T_Lbracket)
+                self.advance()
+
+            elif self.current_char == '}':
+                tokens.append(ProyecTokens.T_Rbracket)
+                self.advance()
+
+            elif self.current_char == '(':
+                tokens.append(ProyecTokens.T_Lparent)
+                self.advance()
+
+            elif self.current_char == ')':
+                tokens.append(ProyecTokens.T_Rparent)
+                self.advance()
+
+            else:
+                # return some error
+                pass 
+
+        return tokens
+    
+    # Dado que la grilla es discreta, no consideraremos tokens para puntos o float numbers
+    def makeNumber(self):
+        num_str = ''
+        while self.current_char != None and self.current_char in ProyecTokens.DIGITS:
+            num_str += self.current_char
+            return token(ProyecTokens.T_int,int(num_str))
