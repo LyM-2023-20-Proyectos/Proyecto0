@@ -49,20 +49,43 @@ class IllegalCharError(Error):
         super().__init__(pos_start, pos_end, 'Caracter ilegal', details)
 
 #----------------------------------------------------
+# Posición
+#----------------------------------------------------
+class Position:
+    def __init__(self, idx, ln, col, fn, ftxt):
+        self.idx = idx  # Índice en el string
+        self.ln = ln    # Línea del programa
+        self.col = col
+        self.fn = fn
+        self.ftxt = ftxt
+
+    def advance(self, current_char):
+        self.idx += 1
+        self.col += 1
+
+        if current_char == '\n':
+            self.ln += 1
+            self.col = 0
+
+        return self
+
+    def copy(self):
+        return Position(self.idx, self.ln, self.col, self.fn, self.ftxt)
+#----------------------------------------------------
 # LEXER
 #----------------------------------------------------
 class Lexer:
-    def __init__(self,text):
+    def __init__(self, fn, text):
+        self.fn = fn
         self.text = text
-        # Variables para recorrer texto:
-        self.pos = -1
+        self.pos = Position(-1, 0, -1, fn, text)
         self.current_char = None
         self.advance()
 
     # Método para avanzar a lo largo del texto:
     def advance(self):
-        self.pos += 1
-        self.current_char = self.text[pos] if self.pos< len(self.text) else None
+        self.pos.advance(self.current_char)
+        self.current_char = self.text[self.pos.idx] if self.pos.idx < len(self.text) else None
         
     def makeTokens(self):
         tokens = []
@@ -108,9 +131,9 @@ class Lexer:
             num_str += self.current_char
             return token(ProyecTokens.T_int,int(num_str))
         
-#######################################
-# RUN
-#######################################
+#----------------------------------------------------
+# Ejecutar
+#----------------------------------------------------
 
 def run(fn, text):
     lexer = Lexer(fn, text)
