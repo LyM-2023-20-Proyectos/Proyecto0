@@ -29,6 +29,26 @@ class token:
         return f'{self.type}'
     
 #----------------------------------------------------
+# ERRORS
+#----------------------------------------------------
+    
+class Error:
+    def __init__(self, pos_start, pos_end, error_name, details):
+        self.pos_start = pos_start
+        self.pos_end = pos_end
+        self.error_name = error_name
+        self.details = details
+    
+    def as_string(self):
+        result  = f'{self.error_name}: {self.details}\n'
+        result += f'File {self.pos_start.fn}, line {self.pos_start.ln + 1}'
+        return result
+
+class IllegalCharError(Error):
+    def __init__(self, pos_start, pos_end, details):
+        super().__init__(pos_start, pos_end, 'Caracter ilegal', details)
+
+#----------------------------------------------------
 # LEXER
 #----------------------------------------------------
 class Lexer:
@@ -72,8 +92,12 @@ class Lexer:
                 self.advance()
 
             else:
-                # return some error
-                pass 
+                pos_start = self.pos.copy()
+                char = self.current_char
+                self.advance()
+                return [], IllegalCharError(pos_start, self.pos, "'" + char + "'")
+
+        return tokens, None
 
         return tokens
     
@@ -83,3 +107,13 @@ class Lexer:
         while self.current_char != None and self.current_char in ProyecTokens.DIGITS:
             num_str += self.current_char
             return token(ProyecTokens.T_int,int(num_str))
+        
+#######################################
+# RUN
+#######################################
+
+def run(fn, text):
+    lexer = Lexer(fn, text)
+    tokens, error = lexer.make_tokens()
+
+    return tokens, error
