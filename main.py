@@ -4,7 +4,7 @@ def main():
     
     while True:
         text = input('basic > ')
-        result, error = basic.run('<stdin>', text)
+        result, error = lexer.run('<stdin>', text)
 
         if error:
             print(error.as_string())
