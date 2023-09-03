@@ -411,7 +411,7 @@ class Lexer:
 
         return tokens, None
     
-    # Dado que la grilla es discreta, no consideraremos tokens para puntos o float numbers
+    # Dado que la grilla es discreta, no consideraremos tokens para puntos de números floating point
     def makeNumber(self):
         num_str = ''
 
