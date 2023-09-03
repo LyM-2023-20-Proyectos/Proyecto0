@@ -9,7 +9,7 @@ Lexer
 Módulo de análisis gramatical del proyecto 0 del curso ISIS-1106: Lenguaje y Máquinas
 """
 import lexer
-import ProyecTokens
+
 #----------------------------------------------------
 # Parser
 #----------------------------------------------------
