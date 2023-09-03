@@ -452,42 +452,7 @@ class BinaryOperationNode:
     def __repr__(self):
         return f'{self.funcType}',f'{self.varName}',f'{self.factor}'
 
-#----------------------------------------------------
-# Parser
-#----------------------------------------------------
-"""
-class Parser:
-    def __init__(tokens):
-        self.tokens = tokens
-        self.tok_index = 1
-        self.advance()
-    
-    def advance():
-        self.tok_index += 1
-        if self.tok_index < len(self.tokens):
-            self.current_tok = self.tokens[self.tok_index]
-        return self.current_tok
-    
 
-    def parse(self):
-        res = self.varType()
-
-    def factor(self):
-        tok = self.current_factor
-
-        if tok.type in (ProyecTokens.T_int, ProyecTokens.T_str):
-            self.advance()
-            return NumberNode(tok)
-        
-    def nombre(self):
-        if token.type in (ProyecTokens.T_name):
-            self.advance()
-            return NumberNode(token)
-
-    def varType(self):
-        if token.type in (ProyecTokens.T_defVar, ProyecTokens.T_defProc):
-            return NumberNode(token)
-"""
 #----------------------------------------------------
 # Ejecutar
 #----------------------------------------------------
