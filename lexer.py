@@ -124,6 +124,7 @@ class Lexer:
                 tokens.append(ProyecTokens.T_semiColon)
                 self.advance()
 
+            # Palabras que empiezan con d
             # Definición de variables o procedimientos, lenguaje del robot no distingue entre upper case o lower case
             elif (self.current_char == 'd' or self.current_char == 'D'):
                 self.advance()
@@ -148,6 +149,21 @@ class Lexer:
                                     if (self.current_char == 'c' or self.current_char == 'C'):
                                         tokens.append(ProyecTokens.T_defProc)
                                         self.advance()
+                elif (self.current_char == 'r' or self.current_char == 'R'):
+                    self.advance()
+                    if (self.current_char == 'o' or self.current_char == 'O'):
+                        self.advance()
+                        if (self.current_char == 'p' or self.current_char == 'P'):
+                            tokens.append(ProyecTokens.T_drop)
+                            self.advance()
+                # Dirección: Down
+                elif (self.current_char == 'o' or self.current_char == 'O'):
+                    self.advance()
+                    if (self.current_char == 'w' or self.current_char == 'W'):
+                        self.advance()
+                        if (self.current_char == 'n' or self.current_char == 'N'):
+                            tokens.append(ProyecTokens.T_down)
+                            self.advance()
 
             # Condicionales
             elif (self.current_char == 'i' or self.current_char == 'I'):
@@ -157,7 +173,7 @@ class Lexer:
                     self.advance()
 
             # A partir de este punto, algunas palabras del lenguaje del robot pueden repetir caractér inicial
-            # Se pueden agrupar las que empiezan con: e, w, no, r y d
+            # Se pueden agrupar las que empiezan con: e, w, no, le, r y d
 
             # Palabras con e
             # Condicional: else
@@ -216,7 +232,7 @@ class Lexer:
                 if (self.current_char == 'a' or self.current_char == 'A'):
                     self.advance()
                     if (self.current_char == 'n' or self.current_char == 'N'):
-                        tokens.append(ProyecTokens.T_can)
+                        tokens.append(ProyecTokens.T_CAN)
                         self.advance()
 
             # Palabras que empiezan con no
@@ -226,7 +242,7 @@ class Lexer:
                 if (self.current_char == 'o' or self.current_char == 'O'):
                     self.advance()
                     if (self.current_char == 't' or self.current_char == 'T'):
-                        tokens.append(ProyecTokens.T_not)
+                        tokens.append(ProyecTokens.T_NOT)
                         self.advance()
                     # Dirección: North
                     elif (self.current_char == 'r' or self.current_char == 'R'):
@@ -235,7 +251,11 @@ class Lexer:
                             self.advance()
                             if (self.current_char == 'h' or self.current_char == 'H'):
                                 tokens.append(ProyecTokens.T_north)
-                                self.advance()     
+                                self.advance()
+                    # Comando: Nop
+                    elif (self.current_char == 'p' or self.current_char == 'P'):
+                        tokens.append(ProyecTokens.T_nop)
+                        self.advance()  
                         
             elif (self.current_char == 'f' or self.current_char == 'F'):
                 self.advance()
@@ -248,7 +268,7 @@ class Lexer:
                             if (self.current_char == 'n' or self.current_char == 'N'):
                                 self.advance()
                                 if (self.current_char == 'g' or self.current_char == 'G'):
-                                    tokens.append(ProyecTokens.T_facing)
+                                    tokens.append(ProyecTokens.T_FACING)
                                     self.advance()
             
             # Palabras que empiezan con r
@@ -288,9 +308,23 @@ class Lexer:
                             if (self.current_char == 's' or self.current_char == 'S'):
                                 tokens.append(ProyecTokens.T_TIMES)
                                 self.advance()
+                elif (self.current_char == 'u' or self.current_char == 'U'):
+                    self.advance()
+                    if (self.current_char == 'r' or self.current_char == 'R'):
+                        self.advance()
+                        if (self.current_char == 'n' or self.current_char == 'N'):
+                            self.advance()
+                            if (self.current_char == 't' or self.current_char == 'T'):
+                                self.advance()
+                                if (self.current_char == 'o' or self.current_char == 'O'):
+                                    tokens.append(ProyecTokens.T_turnTo)
+                                    self.advance()
+                            elif (self.current_char != 't' or self.current_char != 'T'):
+                                tokens.append(ProyecTokens.T_turn)
+                                self.advance()
 
-            # Direcciones
-
+            # Palabras que empiezan con Le
+            # Dirección: Left
             elif (self.current_char == 'l' or self.current_char == 'L'):
                 self.advance()
                 if (self.current_char == 'e' or self.current_char == 'E'):
@@ -300,10 +334,24 @@ class Lexer:
                         if (self.current_char == 't' or self.current_char == 'T'):
                             tokens.append(ProyecTokens.T_left)
                             self.advance()
+                    # Comando: Leap
+                    elif (self.current_char == 'a' or self.current_char == 'A'):
+                        self.advance()
+                        if (self.current_char == 'p' or self.current_char == 'P'):
+                            tokens.append(ProyecTokens.T_leap)
+                            self.advance()
+                    # Comando: Letgo
+                    elif (self.current_char == 't' or self.current_char == 'T'):
+                        self.advance()
+                        if (self.current_char == 'g' or self.current_char == 'G'):
+                            self.advance()
+                            if (self.current_char == 'o' or self.current_char == 'O'):
+                                tokens.append(ProyecTokens.T_letGo)
+                                self.advance()
 
             elif (self.current_char == 'u' or self.current_char == 'U'):
                 self.advance()
-                if (self.current_char == 'P' or self.current_char == 'P'):
+                if (self.current_char == 'p' or self.current_char == 'P'):
                     tokens.append(ProyecTokens.T_up)
                     self.advance()
 
@@ -319,7 +367,7 @@ class Lexer:
                                 tokens.append(ProyecTokens.T_south)
                                 self.advance()
                 
-
+            # Palabras que empiezan con g
             #Comando: Grab
             elif (self.current_char == 'g' or self.current_char == 'G'):
                 self.advance()
@@ -331,24 +379,14 @@ class Lexer:
                             tokens.append(ProyecTokens.T_grab)
                             self.advance()
 
-            # Palabras que empiezan con d
-            # Comando: Drop
-            elif (self.current_char == 'd' or self.current_char == 'D'):
+            elif (self.current_char == 'j' or self.current_char == 'J'):
                 self.advance()
-                if (self.current_char == 'r' or self.current_char == 'R'):
+                if (self.current_char == 'u' or self.current_char == 'U'):
                     self.advance()
-                    if (self.current_char == 'o' or self.current_char == 'O'):
+                    if (self.current_char == 'm' or self.current_char == 'M'):
                         self.advance()
                         if (self.current_char == 'p' or self.current_char == 'P'):
-                            tokens.append(ProyecTokens.T_drop)
-                            self.advance()
-                # Dirección: Down
-                elif (self.current_char == 'o' or self.current_char == 'O'):
-                    self.advance()
-                    if (self.current_char == 'w' or self.current_char == 'W'):
-                        self.advance()
-                        if (self.current_char == 'n' or self.current_char == 'N'):
-                            tokens.append(ProyecTokens.T_down)
+                            tokens.append(ProyecTokens.T_jump)
                             self.advance()
 
             # Las variables o procedimientos deben tener nombres

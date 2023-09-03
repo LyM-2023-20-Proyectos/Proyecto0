@@ -34,6 +34,12 @@ T_NOT = 'NOT CONDITION'
 T_walk = "WALK COMMAND"
 T_grab = "GRAB COMMAND"
 T_drop = "DROP COMMAND"
+T_jump = "JUMP COMMAND"
+T_leap = "LEAP COMMAND"
+T_turn = "TURN COMMAND"
+T_turnTo = "TURN TO COMMAND"
+T_letGo = "LET GO COMMAND"
+T_nop = "NOP COMMAND"
 
 T_right = 'RIGHT DIRECTION'
 T_left = 'LEFT DIRECTION'
