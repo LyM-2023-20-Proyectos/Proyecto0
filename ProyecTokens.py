@@ -6,8 +6,6 @@ Created on Sat Sep  2 13:59:58 2023
 @author: 
 """
 
-DIGITS = '0123456789'
-
 T_int = 'INT'
 T_str = 'STR'
 T_defVAR = 'VARIABLE DEFINITION'

@@ -96,7 +96,7 @@ class Lexer:
             if self.current_char in ' \t':
                 self.advance()
 
-            elif self.current_char in ProyecTokens.DIGITS:
+            elif self.current_char in '1234567890':
                 tokens.append(self.makeNumber())
                 self.advance()
 
@@ -127,10 +127,13 @@ class Lexer:
     # Dado que la grilla es discreta, no consideraremos tokens para puntos o float numbers
     def makeNumber(self):
         num_str = ''
-        while self.current_char != None and self.current_char in ProyecTokens.DIGITS:
+
+        while self.current_char != None and self.current_char in '1234567890':
             num_str += self.current_char
             self.advance()
-        return token(ProyecTokens.T_int, float(num_str))
+
+        return f'{ProyecTokens.T_int}:{num_str}'
+
 
 
 #----------------------------------------------------
@@ -157,7 +160,7 @@ class BinaryOperationNode:
 #----------------------------------------------------
 # Parser
 #----------------------------------------------------
-
+"""
 class Parser:
     def __init__(tokens):
         self.tokens = tokens
@@ -189,7 +192,7 @@ class Parser:
     def varType(self):
         if token.type in (ProyecTokens.T_defVAR, ProyecTokens.T_defProc):
             return NumberNode(token)
-
+"""
 #----------------------------------------------------
 # Ejecutar
 #----------------------------------------------------
@@ -201,7 +204,7 @@ def run(file_name, text):
     if error: return None, error
 
     #Abstract Synthax Tree
-    parser = Parser(tokens)
-    ast = parser.parse()
+    # parser = Parser(tokens)
+    # ast = parser.parse()
 
     return tokens, error

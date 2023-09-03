@@ -3,7 +3,7 @@ import lexer
 def main():
     
     while True:
-        text = input('basic > ')
+        text = input('Texto del programa> ')
         result, error = lexer.run('<stdin>', text)
 
         if error:
