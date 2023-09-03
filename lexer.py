@@ -234,6 +234,9 @@ class Lexer:
                     if (self.current_char == 'n' or self.current_char == 'N'):
                         tokens.append(ProyecTokens.T_CAN)
                         self.advance()
+                else:
+                    tokens.append(self.makeName())
+                    self.advance()
 
             # Palabras que empiezan con no
             # Condicional: not
