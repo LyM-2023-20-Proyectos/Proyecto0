@@ -30,7 +30,7 @@ class token:
         return f'{self.type}'
     
 #----------------------------------------------------
-# ERRORS
+# Errores
 #----------------------------------------------------
     
 class Error:
@@ -115,7 +115,46 @@ class Lexer:
             elif self.current_char == ')':
                 tokens.append(ProyecTokens.T_Rparent)
                 self.advance()
+            
+            elif self.current_char == ',':
+                tokens.append(ProyecTokens.T_comma)
+                self.advance()
 
+            elif self.current_char == ';':
+                tokens.append(ProyecTokens.T_semiColon)
+                self.advance()
+
+            # Definición de variables o procedimientos, lenguaje del robot no distingue entre upper case o lower case
+            elif (self.current_char == 'd' or self.current_char == 'D'):
+                self.advance()
+                if (self.current_char == 'e' or self.current_char == 'E'):
+                    self.advance()
+                if (self.current_char == 'f' or self.current_char == 'F'):
+                    self.advance()
+                # A partir de este punto, la definición puede ser una variable o un procedimiento
+                if (self.current_char == 'v' or self.current_char == 'V'):
+                    self.advance()
+                if (self.current_char == 'a' or self.current_char == 'A'):
+                    self.advance()
+                if (self.current_char == 'r' or self.current_char == 'R'):
+                    tokens.append(ProyecTokens.T_defVAR)
+                    self.advance()
+                elif (self.current_char == 'p' or self.current_char == 'P'):
+                    self.advance()
+                if (self.current_char == 'r' or self.current_char == 'R'):
+                    self.advance()
+                if (self.current_char == 'o' or self.current_char == 'O'):
+                    self.advance()
+                if (self.current_char == 'c' or self.current_char == 'C'):
+                    tokens.append(ProyecTokens.T_defProc)
+                    self.advance()
+
+            # Las variables o procedimientos deben tener nombres
+            elif self.current_char in 'abcdefghijklmnopqrstuvwxyz_-ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+                tokens.append(self.makeName())
+                self.advance()
+
+            # Caractéres que no están en el alfabeto
             else:
                 pos_start = self.pos.copy()
                 char = self.current_char
@@ -133,6 +172,14 @@ class Lexer:
             self.advance()
 
         return f'{ProyecTokens.T_int}:{num_str}'
+    
+    def makeName(self):
+        name_str = ''
+        while self.current_char != None and self.current_char in 'abcdefghijklmnopqrstuvwxyz_-ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+            name_str += self.current_char
+            self.advance()
+
+        return f'{ProyecTokens.T_str}:{name_str}'
 
 
 

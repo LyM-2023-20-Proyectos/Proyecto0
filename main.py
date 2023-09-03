@@ -4,7 +4,7 @@ def main():
     
     while True:
         text = input('Texto del programa> ')
-        result, error = lexer.run('<stdin>', text)
+        result, error = lexer.run('<current terminal input>', text)
 
         if error:
             print(error.as_string())
