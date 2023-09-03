@@ -129,25 +129,55 @@ class Lexer:
                 self.advance()
                 if (self.current_char == 'e' or self.current_char == 'E'):
                     self.advance()
-                if (self.current_char == 'f' or self.current_char == 'F'):
-                    self.advance()
+                    if (self.current_char == 'f' or self.current_char == 'F'):
+                        self.advance()
                 # A partir de este punto, la definición puede ser una variable o un procedimiento
-                if (self.current_char == 'v' or self.current_char == 'V'):
+                        if (self.current_char == 'v' or self.current_char == 'V'):
+                            self.advance()
+                            if (self.current_char == 'a' or self.current_char == 'A'):
+                                self.advance()
+                                if (self.current_char == 'r' or self.current_char == 'R'):
+                                    tokens.append(ProyecTokens.T_defVAR)
+                                    self.advance()
+                        elif (self.current_char == 'p' or self.current_char == 'P'):
+                            self.advance()
+                            if (self.current_char == 'r' or self.current_char == 'R'):
+                                self.advance()
+                                if (self.current_char == 'o' or self.current_char == 'O'):
+                                    self.advance()
+                                    if (self.current_char == 'c' or self.current_char == 'C'):
+                                        tokens.append(ProyecTokens.T_defProc)
+                                        self.advance()
+
+            # Condicionales
+            elif (self.current_char == 'i' or self.current_char == 'I'):
+                self.advance()
+                if (self.current_char == 'i' or self.current_char == 'I'):
+                    tokens.append(ProyecTokens.T_ifCon)
                     self.advance()
-                if (self.current_char == 'a' or self.current_char == 'A'):
+
+            elif (self.current_char == 'e' or self.current_char == 'E'):
+                self.advance()
+                if (self.current_char == 'l' or self.current_char == 'L'):
                     self.advance()
-                if (self.current_char == 'r' or self.current_char == 'R'):
-                    tokens.append(ProyecTokens.T_defVAR)
+                    if (self.current_char == 's' or self.current_char == 'S'):
+                        self.advance()
+                        if (self.current_char == 'e' or self.current_char == 'E'):
+                            tokens.append(ProyecTokens.T_elseCON)
+                            self.advance()
+
+            # Ciclos
+            elif (self.current_char == 'w' or self.current_char == 'W'):
+                self.advance()
+                if (self.current_char == 'h' or self.current_char == 'H'):
                     self.advance()
-                elif (self.current_char == 'p' or self.current_char == 'P'):
-                    self.advance()
-                if (self.current_char == 'r' or self.current_char == 'R'):
-                    self.advance()
-                if (self.current_char == 'o' or self.current_char == 'O'):
-                    self.advance()
-                if (self.current_char == 'c' or self.current_char == 'C'):
-                    tokens.append(ProyecTokens.T_defProc)
-                    self.advance()
+                    if (self.current_char == 'i' or self.current_char == 'I'):
+                        self.advance()
+                        if (self.current_char == 'l' or self.current_char == 'L'):
+                            self.advance()
+                            if (self.current_char == 'e' or self.current_char == 'E'):
+                                tokens.append(ProyecTokens.T_while)
+                                self.advance()
 
             # Las variables o procedimientos deben tener nombres
             elif self.current_char in 'abcdefghijklmnopqrstuvwxyz_-ABCDEFGHIJKLMNOPQRSTUVWXYZ':
