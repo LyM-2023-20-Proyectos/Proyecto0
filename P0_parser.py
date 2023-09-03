@@ -28,7 +28,7 @@ class Parser:
 
     def parse(self):
         res = self.varType()
-
+"""
     def factor(self):
         tok = self.current_factor
 
@@ -44,3 +44,4 @@ class Parser:
     def varType(self):
         if token.type in (ProyecTokens.T_defVar, ProyecTokens.T_defProc):
             return NumberNode(token)
+            """
