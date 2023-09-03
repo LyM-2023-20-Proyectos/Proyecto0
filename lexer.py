@@ -234,8 +234,91 @@ class Lexer:
                         if (self.current_char == 'e' or self.current_char == 'E'):
                             self.advance()
                             if (self.current_char == 's' or self.current_char == 'S'):
-                                tokens.append(ProyecTokens.T_repeat)
+                                tokens.append(ProyecTokens.T_TIMES)
                                 self.advance()
+
+            # Direcciones
+            elif (self.current_char == 'r' or self.current_char == 'R'):
+                self.advance()
+                if (self.current_char == 'i' or self.current_char == 'I'):
+                    self.advance()
+                    if (self.current_char == 'g' or self.current_char == 'G'):
+                        self.advance()
+                        if (self.current_char == 'h' or self.current_char == 'H'):
+                            self.advance()
+                            if (self.current_char == 't' or self.current_char == 'T'):
+                                tokens.append(ProyecTokens.T_right)
+                                self.advance()
+
+            elif (self.current_char == 'l' or self.current_char == 'L'):
+                self.advance()
+                if (self.current_char == 'e' or self.current_char == 'E'):
+                    self.advance()
+                    if (self.current_char == 'f' or self.current_char == 'F'):
+                        self.advance()
+                        if (self.current_char == 't' or self.current_char == 'T'):
+                            tokens.append(ProyecTokens.T_left)
+                            self.advance()
+
+            elif (self.current_char == 'u' or self.current_char == 'U'):
+                self.advance()
+                if (self.current_char == 'P' or self.current_char == 'P'):
+                    tokens.append(ProyecTokens.T_up)
+                    self.advance()
+
+            elif (self.current_char == 'd' or self.current_char == 'D'):
+                self.advance()
+                if (self.current_char == 'o' or self.current_char == 'O'):
+                    self.advance()
+                    if (self.current_char == 'w' or self.current_char == 'W'):
+                        self.advance()
+                        if (self.current_char == 'n' or self.current_char == 'N'):
+                            tokens.append(ProyecTokens.T_down)
+                            self.advance()
+
+            elif (self.current_char == 'n' or self.current_char == 'N'):
+                self.advance()
+                if (self.current_char == 'o' or self.current_char == 'O'):
+                    self.advance()
+                    if (self.current_char == 'r' or self.current_char == 'R'):
+                        self.advance()
+                        if (self.current_char == 't' or self.current_char == 'T'):
+                            self.advance()
+                            if (self.current_char == 'h' or self.current_char == 'H'):
+                                tokens.append(ProyecTokens.T_north)
+                                self.advance()
+
+            elif (self.current_char == 's' or self.current_char == 'S'):
+                self.advance()
+                if (self.current_char == 'o' or self.current_char == 'O'):
+                    self.advance()
+                    if (self.current_char == 'u' or self.current_char == 'U'):
+                        self.advance()
+                        if (self.current_char == 't' or self.current_char == 'T'):
+                            self.advance()
+                            if (self.current_char == 'h' or self.current_char == 'H'):
+                                tokens.append(ProyecTokens.T_south)
+                                self.advance()
+
+            elif (self.current_char == 'w' or self.current_char == 'W'):
+                self.advance()
+                if (self.current_char == 'e' or self.current_char == 'E'):
+                    self.advance()
+                    if (self.current_char == 's' or self.current_char == 'S'):
+                        self.advance()
+                        if (self.current_char == 't' or self.current_char == 'T'):
+                            tokens.append(ProyecTokens.T_west)
+                            self.advance()
+
+            elif (self.current_char == 'e' or self.current_char == 'E'):
+                self.advance()
+                if (self.current_char == 'a' or self.current_char == 'A'):
+                    self.advance()
+                    if (self.current_char == 's' or self.current_char == 'S'):
+                        self.advance()
+                        if (self.current_char == 't' or self.current_char == 'T'):
+                            tokens.append(ProyecTokens.T_east)
+                            self.advance()
 
             # Las variables o procedimientos deben tener nombres
             elif self.current_char in 'abcdefghijklmnopqrstuvwxyz_-ABCDEFGHIJKLMNOPQRSTUVWXYZ':
