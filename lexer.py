@@ -378,6 +378,11 @@ class Lexer:
                         if (self.current_char == 'b' or self.current_char == 'B'):
                             tokens.append(ProyecTokens.T_grab)
                             self.advance()
+                elif (self.current_char == 'e' or self.current_char == 'E'):
+                    self.advance()
+                    if (self.current_char == 't' or self.current_char == 'T'):
+                        tokens.append(ProyecTokens.T_get)
+                        self.advance()
 
             elif (self.current_char == 'j' or self.current_char == 'J'):
                 self.advance()

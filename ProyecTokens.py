@@ -40,6 +40,7 @@ T_turn = "TURN COMMAND"
 T_turnTo = "TURN TO COMMAND"
 T_letGo = "LET GO COMMAND"
 T_nop = "NOP COMMAND"
+T_get = "GET COMMAND"
 
 T_right = 'RIGHT DIRECTION'
 T_left = 'LEFT DIRECTION'
