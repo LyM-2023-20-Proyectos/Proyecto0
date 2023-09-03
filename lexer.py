@@ -137,7 +137,7 @@ class Lexer:
                             if (self.current_char == 'a' or self.current_char == 'A'):
                                 self.advance()
                                 if (self.current_char == 'r' or self.current_char == 'R'):
-                                    tokens.append(ProyecTokens.T_defVAR)
+                                    tokens.append(ProyecTokens.T_defVar)
                                     self.advance()
                         elif (self.current_char == 'p' or self.current_char == 'P'):
                             self.advance()
@@ -163,7 +163,7 @@ class Lexer:
                     if (self.current_char == 's' or self.current_char == 'S'):
                         self.advance()
                         if (self.current_char == 'e' or self.current_char == 'E'):
-                            tokens.append(ProyecTokens.T_elseCON)
+                            tokens.append(ProyecTokens.T_elseCon)
                             self.advance()
 
             # Ciclos
@@ -185,7 +185,7 @@ class Lexer:
                 if (self.current_char == 'a' or self.current_char == 'A'):
                     self.advance()
                     if (self.current_char == 'n' or self.current_char == 'N'):
-                        tokens.append(ProyecTokens.T_CAN)
+                        tokens.append(ProyecTokens.T_can)
                         self.advance()
 
             elif (self.current_char == 'n' or self.current_char == 'N'):
@@ -193,7 +193,7 @@ class Lexer:
                 if (self.current_char == 'o' or self.current_char == 'O'):
                     self.advance()
                     if (self.current_char == 't' or self.current_char == 'T'):
-                        tokens.append(ProyecTokens.T_NOT)
+                        tokens.append(ProyecTokens.T_not)
                         self.advance()
                         
             elif (self.current_char == 'f' or self.current_char == 'F'):
@@ -207,7 +207,7 @@ class Lexer:
                             if (self.current_char == 'n' or self.current_char == 'N'):
                                 self.advance()
                                 if (self.current_char == 'g' or self.current_char == 'G'):
-                                    tokens.append(ProyecTokens.T_FACING)
+                                    tokens.append(ProyecTokens.T_facing)
                                     self.advance()
 
             # Comando de repetir bloques de código n veces
@@ -234,8 +234,39 @@ class Lexer:
                         if (self.current_char == 'e' or self.current_char == 'E'):
                             self.advance()
                             if (self.current_char == 's' or self.current_char == 'S'):
-                                tokens.append(ProyecTokens.T_repeat)
+                                tokens.append(ProyecTokens.T_times)
                                 self.advance()
+            
+            #Comandos simples
+            elif (self.current_char == 'w' or self.current_char == 'W'):
+                self.advance()
+                if (self.current_char == 'a' or self.current_char == 'A'):
+                    self.advance()
+                    if (self.current_char == 'l' or self.current_char == 'L'):
+                        self.advance()
+                        if (self.current_char == 'k' or self.current_char == 'K'):
+                            tokens.append(ProyecTokens.T_walk)
+                            self.advance()
+            elif (self.current_char == 'g' or self.current_char == 'G'):
+                self.advance()
+                if (self.current_char == 'r' or self.current_char == 'R'):
+                    self.advance()
+                    if (self.current_char == 'a' or self.current_char == 'A'):
+                        self.advance()
+                        if (self.current_char == 'b' or self.current_char == 'B'):
+                            tokens.append(ProyecTokens.T_grab)
+                            self.advance()
+            elif (self.current_char == 'd' or self.current_char == 'D'):
+                self.advance()
+                if (self.current_char == 'r' or self.current_char == 'R'):
+                    self.advance()
+                    if (self.current_char == 'o' or self.current_char == 'O'):
+                        self.advance()
+                        if (self.current_char == 'p' or self.current_char == 'P'):
+                            tokens.append(ProyecTokens.T_drop)
+                            self.advance()
+                            
+
 
             # Las variables o procedimientos deben tener nombres
             elif self.current_char in 'abcdefghijklmnopqrstuvwxyz_-ABCDEFGHIJKLMNOPQRSTUVWXYZ':
@@ -325,7 +356,7 @@ class Parser:
             return NumberNode(token)
 
     def varType(self):
-        if token.type in (ProyecTokens.T_defVAR, ProyecTokens.T_defProc):
+        if token.type in (ProyecTokens.T_defVar, ProyecTokens.T_defProc):
             return NumberNode(token)
 """
 #----------------------------------------------------
