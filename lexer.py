@@ -152,7 +152,7 @@ class Lexer:
             # Condicionales
             elif (self.current_char == 'i' or self.current_char == 'I'):
                 self.advance()
-                if (self.current_char == 'i' or self.current_char == 'I'):
+                if (self.current_char == 'f' or self.current_char == 'F'):
                     tokens.append(ProyecTokens.T_ifCon)
                     self.advance()
 
@@ -177,6 +177,64 @@ class Lexer:
                             self.advance()
                             if (self.current_char == 'e' or self.current_char == 'E'):
                                 tokens.append(ProyecTokens.T_while)
+                                self.advance()
+
+            # Condiciones
+            elif (self.current_char == 'c' or self.current_char == 'C'):
+                self.advance()
+                if (self.current_char == 'a' or self.current_char == 'A'):
+                    self.advance()
+                    if (self.current_char == 'n' or self.current_char == 'N'):
+                        tokens.append(ProyecTokens.T_CAN)
+                        self.advance()
+
+            elif (self.current_char == 'n' or self.current_char == 'N'):
+                self.advance()
+                if (self.current_char == 'o' or self.current_char == 'O'):
+                    self.advance()
+                    if (self.current_char == 't' or self.current_char == 'T'):
+                        tokens.append(ProyecTokens.T_NOT)
+                        self.advance()
+                        
+            elif (self.current_char == 'f' or self.current_char == 'F'):
+                self.advance()
+                if (self.current_char == 'a' or self.current_char == 'A'):
+                    self.advance()
+                    if (self.current_char == 'c' or self.current_char == 'C'):
+                        self.advance()
+                        if (self.current_char == 'i' or self.current_char == 'I'):
+                            self.advance()
+                            if (self.current_char == 'n' or self.current_char == 'N'):
+                                self.advance()
+                                if (self.current_char == 'g' or self.current_char == 'G'):
+                                    tokens.append(ProyecTokens.T_FACING)
+                                    self.advance()
+
+            # Comando de repetir bloques de código n veces
+            elif (self.current_char == 'r' or self.current_char == 'R'):
+                self.advance()
+                if (self.current_char == 'e' or self.current_char == 'E'):
+                    self.advance()
+                    if (self.current_char == 'p' or self.current_char == 'P'):
+                        self.advance()
+                        if (self.current_char == 'e' or self.current_char == 'E'):
+                            self.advance()
+                            if (self.current_char == 'a' or self.current_char == 'A'):
+                                self.advance()
+                                if (self.current_char == 't' or self.current_char == 'T'):
+                                    tokens.append(ProyecTokens.T_repeat)
+                                    self.advance()
+
+            elif (self.current_char == 't' or self.current_char == 'T'):
+                self.advance()
+                if (self.current_char == 'i' or self.current_char == 'I'):
+                    self.advance()
+                    if (self.current_char == 'm' or self.current_char == 'M'):
+                        self.advance()
+                        if (self.current_char == 'e' or self.current_char == 'E'):
+                            self.advance()
+                            if (self.current_char == 's' or self.current_char == 'S'):
+                                tokens.append(ProyecTokens.T_repeat)
                                 self.advance()
 
             # Las variables o procedimientos deben tener nombres
