@@ -17,6 +17,7 @@ import ProyecTokens
 Token: {Tipo, valor opcional}
 Clase del objeto token:
 """
+
 class token:
     def __init__(self,type_, value = None):
         self.type = type_
@@ -41,7 +42,7 @@ class Error:
     
     def as_string(self):
         result  = f'{self.error_name}: {self.details}\n'
-        result += f'File {self.pos_start.fn}, line {self.pos_start.ln + 1}'
+        result += f'File {self.pos_start.file_name}, line {self.pos_start.ln + 1}'
         return result
 
 class IllegalCharError(Error):
@@ -52,11 +53,11 @@ class IllegalCharError(Error):
 # Posición
 #----------------------------------------------------
 class Position:
-    def __init__(self, idx, ln, col, fn, ftxt):
+    def __init__(self, idx, ln, col, file_name, ftxt):
         self.idx = idx  # Índice en el string
         self.ln = ln    # Línea del programa
         self.col = col
-        self.fn = fn
+        self.file_name = file_name
         self.ftxt = ftxt
 
     def advance(self, current_char):
@@ -70,15 +71,15 @@ class Position:
         return self
 
     def copy(self):
-        return Position(self.idx, self.ln, self.col, self.fn, self.ftxt)
+        return Position(self.idx, self.ln, self.col, self.file_name, self.ftxt)
 #----------------------------------------------------
 # LEXER
 #----------------------------------------------------
 class Lexer:
-    def __init__(self, fn, text):
-        self.fn = fn
+    def __init__(self, file_name, text):
+        self.file_name = file_name
         self.text = text
-        self.pos = Position(-1, 0, -1, fn, text)
+        self.pos = Position(-1, 0, -1, file_name, text)
         self.current_char = None
         self.advance()
 
@@ -89,6 +90,7 @@ class Lexer:
         
     def makeTokens(self):
         tokens = []
+
         while self.current_char != None:
             # Ignorar espacios, identación y saltos de línea
             if self.current_char in ' \t':
@@ -127,15 +129,79 @@ class Lexer:
         num_str = ''
         while self.current_char != None and self.current_char in ProyecTokens.DIGITS:
             num_str += self.current_char
+            self.advance()
+        return token(ProyecTokens.T_int, float(num_str))
+
+
+#----------------------------------------------------
+# Nodos
+#----------------------------------------------------
+
+class NumberNode:
+
+    def __init__(self, token):
+        self.token = token
+
+    def __repr__(self):
+        return f'{self.token}'
+    
+class BinaryOperationNode:
+    def __init__(self, funcType, varName, factor):
+        self.funcType = funcType
+        self.varName = varName
+        self.factor = factor
+    
+    def __repr__(self):
+        return f'{self.funcType}',f'{self.varName}',f'{self.factor}'
+
+#----------------------------------------------------
+# Parser
+#----------------------------------------------------
+
+class Parser:
+    def __init__(tokens):
+        self.tokens = tokens
+        self.tok_index = 1
         self.advance()
-        return token(ProyecTokens.T_int,int(num_str))
+    
+    def advance():
+        self.tok_index += 1
+        if self.tok_index < len(self.tokens):
+            self.current_tok = self.tokens[self.tok_index]
+        return self.current_tok
+    
+
+    def parse(self):
+        res = self.varType()
+
+    def factor(self):
+        tok = self.current_factor
+
+        if tok.type in (ProyecTokens.T_int, ProyecTokens.T_str):
+            self.advance()
+            return NumberNode(tok)
         
+    def nombre(self):
+        if token.type in (ProyecTokens.T_name):
+            self.advance()
+            return NumberNode(token)
+
+    def varType(self):
+        if token.type in (ProyecTokens.T_defVAR, ProyecTokens.T_defProc):
+            return NumberNode(token)
+
 #----------------------------------------------------
 # Ejecutar
 #----------------------------------------------------
 
-def run(fn, text):
-    lexer = Lexer(fn, text)
-    tokens, error = lexer.make_tokens()
+def run(file_name, text):
+    #Tokens
+    lexer = Lexer(file_name, text)
+    tokens, error = lexer.makeTokens()
+    if error: return None, error
+
+    #Abstract Synthax Tree
+    parser = Parser(tokens)
+    ast = parser.parse()
 
     return tokens, error

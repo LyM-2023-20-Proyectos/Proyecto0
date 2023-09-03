@@ -24,3 +24,10 @@ defProc goWest ()
 jump (3 ,3) ;
 putCB (2 ,1)
 }
+
+Grammar
+
+Funcion:  funcType nombreVar factor  
+Tipo: defVar | defProc
+nombreVar: STR
+factor: INT | north | south | east | west
