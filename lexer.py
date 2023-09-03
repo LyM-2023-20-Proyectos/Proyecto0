@@ -10,7 +10,7 @@ Módulo de análisis léxico del proyecto 0 del curso ISIS-1106: Lenguaje y Máq
 """
 
 #----------------------------------------------------
-# TOKENS
+# Tokens
 #----------------------------------------------------
 import ProyecTokens
 """
