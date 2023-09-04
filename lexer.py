@@ -90,6 +90,7 @@ class Lexer:
         
     def makeTokens(self):
         tokens = []
+        print(str(self.current_char))
 
         while self.current_char != None:
             # Ignorar espacios, identación y saltos de línea
