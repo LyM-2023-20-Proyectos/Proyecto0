@@ -84,10 +84,9 @@ def parse_line(tokens):
 
 
 #----------------------------------------------------
-#Verificacion Funciones
+# Subfunciones de verificación
 #----------------------------------------------------
 
-"""
 def verificar_programa(txt)-> bool:
     tokens = lex.Lexer.makeTokens(txt)
     componentes = bloques_de_funciones(tokens)
@@ -236,4 +235,3 @@ def estructura_de_parametro(sublista:list)->bool:
         pos += 1
         
     return valido
-"""
