@@ -34,7 +34,7 @@ def parse_line(tokens):
             if (proTk.T_int not in tokens[current_token+2]):
                 valid_program = False
                 break
-
+        """
         # La definición de un procedimiento debe seguir la sintaxis:
         # defProc nomProc(...){
         #    ...
@@ -77,10 +77,7 @@ def parse_line(tokens):
                 if leftParenthesis != rightParenthesis:
                     valid_program = False
                     break
-            
-
-
-        
+        """
         current_token += 1
 
     return valid_program
