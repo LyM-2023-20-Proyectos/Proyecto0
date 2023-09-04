@@ -1,5 +1,6 @@
 import lexer
 import P0_parser
+import sys
 
 def main():
     
@@ -11,7 +12,10 @@ def main():
             print(error.as_string())
             print('Programa inválido por caractér ilegal')
         else:
-            print(result,'Programa válido para el robot:',P0_parser.parse_line(result))
+            print(result)
+            print('Programa válido para el robot:',P0_parser.parse_line(result))
+            if P0_parser.parse_line(result) == False:
+                sys.exit()
 
 
 if __name__ == '__main__':
