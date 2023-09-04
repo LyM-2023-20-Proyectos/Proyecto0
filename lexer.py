@@ -171,6 +171,9 @@ class Lexer:
                 if (self.current_char == 'f' or self.current_char == 'F'):
                     tokens.append(ProyecTokens.T_ifCon)
                     self.advance()
+                else:
+                    tokens.append(self.makeName())
+                    self.advance()
 
             # A partir de este punto, algunas palabras del lenguaje del robot pueden repetir caractér inicial
             # Se pueden agrupar las que empiezan con: e, w, no, le, r y d
@@ -194,6 +197,9 @@ class Lexer:
                         if (self.current_char == 't' or self.current_char == 'T'):
                             tokens.append(ProyecTokens.T_east)
                             self.advance()
+                else:
+                    tokens.append(self.makeName())
+                    self.advance()
                 
 
             # Palabras con w
