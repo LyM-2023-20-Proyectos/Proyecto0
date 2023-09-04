@@ -7,41 +7,33 @@ Created on Sat Sep  2 13:59:58 2023
 
 Lexer
 Módulo de análisis gramatical del proyecto 0 del curso ISIS-1106: Lenguaje y Máquinas
+Parser True si un programa es válido, de lo contrario retorna false.
 """
-import lexer
+import ProyecTokens
 
 #----------------------------------------------------
 # Parser
 #----------------------------------------------------
-class Parser:
-    def __init__(self,tokens):
-        self.tokens = tokens
-        self.tok_index = 1
-        self.advance()
-    
-    def advance(self):
-        self.tok_index += 1
-        if self.tok_index < len(self.tokens):
-            self.current_tok = self.tokens[self.tok_index]
-        return self.current_tok
-    
 
-    def parse(self):
-        res = self.varType()
-"""
-    def factor(self):
-        tok = self.current_factor
+def parse_line(tokens):
+    # Tokens es la lista de tokens retornada por el lexer
+    current_token = 0
+    valid_program = True
 
-        if tok.type in (ProyecTokens.T_int, ProyecTokens.T_str):
-            self.advance()
-            return NumberNode(tok)
+    while current_token in range(len(tokens)):
+        # Una variable o procedimiento sólo puede tener de nombre un string
+        if ((tokens[current_token] == ProyecTokens.T_defVar) or (tokens[current_token] == ProyecTokens.T_defProc)) and (ProyecTokens.T_str not in tokens[current_token+1]):
+            valid_program = False
+            break
+
         
-    def nombre(self):
-        if token.type in (ProyecTokens.T_name):
-            self.advance()
-            return NumberNode(token)
+        # Una variable con nombre sólo puede almacenar un número
+        # Si un token es una definición de variable, el siguiente es token string, y el siguiente es token int
+        if ((tokens[current_token] == ProyecTokens.T_defVar) and (ProyecTokens.T_str in tokens[current_token+1])):
+            if (ProyecTokens.T_int not in tokens[current_token+2]):
+                valid_program = False
+                break
+        
+        current_token += 1
 
-    def varType(self):
-        if token.type in (ProyecTokens.T_defVar, ProyecTokens.T_defProc):
-            return NumberNode(token)
-            """
+    return valid_program
