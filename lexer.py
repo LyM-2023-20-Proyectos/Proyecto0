@@ -470,8 +470,4 @@ def run(file_name, text):
     tokens, error = lexer.makeTokens()
     if error: return None, error
 
-    #Abstract Synthax Tree
-    # parser = Parser(tokens)
-    # ast = parser.parse()
-
     return tokens, error
