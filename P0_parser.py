@@ -26,7 +26,7 @@ def parse(tokens):
         
         if tokens[current_token] == '' or tokens[current_token] == '\n':
             pass
-        
+
         # Una variable o procedimiento sólo puede tener de nombre un string
         if ((tokens[current_token] == proTk.T_defVar) or (tokens[current_token] == proTk.T_defProc)) and (proTk.T_str not in tokens[current_token+1]):
             valid_program = False
@@ -69,7 +69,7 @@ def parse(tokens):
 
 
 #----------------------------------------------------
-# Subfunciones de verificación
+# Subfunciones de verificación (no se están usando)
 #----------------------------------------------------
 
 def verificar_programa(txt)-> bool:
