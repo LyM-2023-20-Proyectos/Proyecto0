@@ -68,6 +68,10 @@ class Position:
             self.ln += 1
             self.col = 0
 
+        if current_char == '':
+            self.ln += 1
+            self.col = 0
+
         return self
 
     def copy(self):
@@ -90,7 +94,7 @@ class Lexer:
         
     def makeTokens(self):
         tokens = []
-        #print(self.current_char)
+        # print(str(self.current_char))
 
         while self.current_char != None:
             # Ignorar espacios, identación y saltos de línea
@@ -99,6 +103,10 @@ class Lexer:
 
             elif self.current_char in '1234567890':
                 tokens.append(self.makeNumber())
+                self.advance()
+            
+            # Ignorar espacios, identación y saltos de línea
+            elif (self.current_char == '\n') or (self.current_char == ''):
                 self.advance()
 
             elif self.current_char == '{':
@@ -469,9 +477,5 @@ def run(file_name, text):
     lexer = Lexer(file_name, text)
     tokens, error = lexer.makeTokens()
     if error: return None, error
-
-    #Abstract Synthax Tree
-    # parser = Parser(tokens)
-    # ast = parser.parse()
 
     return tokens, error
