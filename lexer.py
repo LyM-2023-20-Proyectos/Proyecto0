@@ -104,6 +104,10 @@ class Lexer:
             elif self.current_char in '1234567890':
                 tokens.append(self.makeNumber())
                 self.advance()
+            
+            # Ignorar espacios, identación y saltos de línea
+            elif (self.current_char == '\n') or (self.current_char == ''):
+                self.advance()
 
             elif self.current_char == '{':
                 tokens.append(ProyecTokens.T_Lbracket)

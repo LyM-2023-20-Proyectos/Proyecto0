@@ -5,7 +5,7 @@ import sys
 prueba = "ValidProgram.txt"
 
 def main():
-    
+    print('Probar copiando y pegando un archivo de programa en el terminal')
     while True:
         text = input('Texto del programa> ')
         result, error = lexer.run('<current terminal input>', text)
