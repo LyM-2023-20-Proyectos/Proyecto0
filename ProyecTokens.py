@@ -3,7 +3,7 @@
 Created on Sat Sep  2 13:59:58 2023
 
 @author: Lucas Nieto Martínez
-@author: 
+@author: Guillermo Antonio Villalba Escamilla
 """
 
 T_int = 'INT'
