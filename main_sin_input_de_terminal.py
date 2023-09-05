@@ -2,26 +2,29 @@ import lexer
 import P0_parser
 import sys
 
-archivo = "ValidProgram.txt"
-
-with open(archivo, 'r') as texto:
-    programa = texto.read()
-
 def main():
-    
-    while True:
-        result, error = lexer.run(f'File: {archivo}', programa)
-        parser = P0_parser.parse(programa)
+    file_name = 'validProgram.txt'  # Reemplazar con un txt de otros programas
+    with open(file_name, 'r') as file:
+        text = file.read()
 
-        if error:
-            print(error.as_string())
-            print('Programa inválido por caractér ilegal')
-            sys.exit()
+    tokens, error = lexer.run(file_name, text)
+    
+    if error:
+        print(error.as_string())
+        # sys.exit()
+    else:
+        is_valid_program = P0_parser.parse(tokens)
+        if is_valid_program:
+            print("El programa es válido.")
+            # sys.exit()
         else:
-            print(result)
-            print('Programa válido para el robot:',P0_parser.parse_line(result))
-            if parser:
-                print('Programa valido?')
-            if P0_parser.parse(result) == False:
-                print(False)
-                print(sys.exit())
+            print("El programa no es válido.")
+            # sys.exit()
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+

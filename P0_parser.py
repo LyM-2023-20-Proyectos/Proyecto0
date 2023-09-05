@@ -23,6 +23,9 @@ def parse(tokens):
     valid_program = True
 
     while current_token in range(len(tokens)):
+        
+        if tokens[current_token] == None:
+            pass
         # Una variable o procedimiento sólo puede tener de nombre un string
         if ((tokens[current_token] == proTk.T_defVar) or (tokens[current_token] == proTk.T_defProc)) and (proTk.T_str not in tokens[current_token+1]):
             valid_program = False

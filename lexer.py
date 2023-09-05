@@ -68,6 +68,10 @@ class Position:
             self.ln += 1
             self.col = 0
 
+        if current_char == '':
+            self.ln += 1
+            self.col = 0
+
         return self
 
     def copy(self):
@@ -90,7 +94,7 @@ class Lexer:
         
     def makeTokens(self):
         tokens = []
-        print(str(self.current_char))
+        # print(str(self.current_char))
 
         while self.current_char != None:
             # Ignorar espacios, identación y saltos de línea

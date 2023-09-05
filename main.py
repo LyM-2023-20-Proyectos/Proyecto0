@@ -9,14 +9,14 @@ def main():
     while True:
         text = input('Texto del programa> ')
         result, error = lexer.run('<current terminal input>', text)
-        #parser = P0_parser.verificar_programa(text)
+        parser = P0_parser.parse(text)
 
         if error:
             print(error.as_string())
             print('Programa inválido por caractér ilegal')
         else:
             print(result)
-            #print('Programa válido para el robot:',P0_parser.parse_line(result))
+            print('Programa válido para el robot:',P0_parser.parse(result))
             #if parser:
             #    print('Programa valido')
             #if P0_parser.parse_line(result) == False:
