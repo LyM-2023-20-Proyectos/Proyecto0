@@ -17,12 +17,16 @@ import builtins
 # Parser
 #----------------------------------------------------
 
-def parse_line(tokens):
+def parse(tokens):
     # Tokens es la lista de tokens retornada por el lexer
     current_token = 0
     valid_program = True
 
     while current_token in range(len(tokens)):
+        
+        if tokens[current_token] == '' or tokens[current_token] == '\n':
+            pass
+
         # Una variable o procedimiento sólo puede tener de nombre un string
         if ((tokens[current_token] == proTk.T_defVar) or (tokens[current_token] == proTk.T_defProc)) and (proTk.T_str not in tokens[current_token+1]):
             valid_program = False
@@ -34,57 +38,38 @@ def parse_line(tokens):
             if (proTk.T_int not in tokens[current_token+2]):
                 valid_program = False
                 break
-        """
-        # La definición de un procedimiento debe seguir la sintaxis:
-        # defProc nomProc(...){
-        #    ...
-        # }
-        # No sé arreglar esto
-        if ((tokens[current_token] == proTk.T_defProc) and (proTk.T_str in tokens[current_token+1])):
-            leftParenthesis = 0
-            rightParenthesis = 0
-            lBracket = 0
-            rBracket = 0
-            if (proTk.T_Lparent not in tokens[current_token+2]):
-                print(proTk.T_Lparent)
-                print(tokens[current_token+2])
-                print(proTk.T_Lparent not in tokens[current_token+2])
-                print(proTk.T_Lparent,'not in',tokens[current_token+2])
+        # Verificar que las definiciones de procedimientos tengan parámetros entre paréntesis
+        if tokens[current_token] == proTk.T_defProc:
+            current_token += 1
+            if tokens[current_token] != proTk.T_Lparent:
                 valid_program = False
                 break
-            else:
-                leftParenthesis += 1
-                while current_token in range(len(tokens)):
-                    if current_token == proTk.T_Lparent:
-                        leftParenthesis += 1
-                    elif current_token == proTk.T_Rparent:
-                        rightParenthesis += 1
-                        # Después del primer paréntesis derecho, debe venir un bracket izquierdo:
-                        if (tokens[current_token] == proTk.T_Rparent) and (tokens[current_token+1] != proTk.T_Lbracket):
-                            valid_program = False
-                            break
-                        else:
-                            lBracket += 1
-                            while current_token in range(len(tokens)):
-                                if current_token == proTk.T_Lbracket:
-                                    lBracket += 1
-                                elif current_token == proTk.T_Rbracket:
-                                    rBracket += 1
-                                if lBracket != rBracket:
-                                    valid_program = False
-                                    break
-                    current_token += 1
-                if leftParenthesis != rightParenthesis:
-                    valid_program = False
-                    break
-        """
+
+            # Avanzar hasta encontrar el cierre de paréntesis
+            while current_token < len(tokens) and tokens[current_token] != proTk.T_Rparent:
+                current_token += 1
+
+            if current_token >= len(tokens):
+                valid_program = False
+                break
+
+        # Verificar que un bloque de comandos esté dentro de llaves
+        if tokens[current_token] == proTk.T_Lbracket:
+            current_token += 1
+
+            while current_token < len(tokens) and tokens[current_token] != proTk.T_Rbracket:
+                current_token += 1
+
+            if current_token >= len(tokens):
+                valid_program = False
+                break
         current_token += 1
 
     return valid_program
 
 
 #----------------------------------------------------
-# Subfunciones de verificación
+# Subfunciones de verificación (no se están usando)
 #----------------------------------------------------
 
 def verificar_programa(txt)-> bool:

@@ -5,18 +5,26 @@ import sys
 prueba = "ValidProgram.txt"
 
 def main():
-    
+    print('Probar copiando y pegando un archivo de programa en el terminal')
     while True:
         text = input('Texto del programa> ')
         result, error = lexer.run('<current terminal input>', text)
+<<<<<<< HEAD
         #parser = P0_parser.verificar_programa(text)
+=======
+        parser = P0_parser.parse(text)
+>>>>>>> 684ee4e60e9229f2abf0a6d92f6adba874c5545e
 
         if error:
             print(error.as_string())
             print('Programa inválido por caractér ilegal')
         else:
             print(result)
+<<<<<<< HEAD
             print('Programa válido para el robot:',P0_parser.parse_line(result))
+=======
+            print('Programa válido para el robot:',P0_parser.parse(result))
+>>>>>>> 684ee4e60e9229f2abf0a6d92f6adba874c5545e
             #if parser:
             #    print('Programa valido')
             #if P0_parser.parse_line(result) == False:
