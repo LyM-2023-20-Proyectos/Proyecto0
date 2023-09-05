@@ -17,7 +17,7 @@ import builtins
 # Parser
 #----------------------------------------------------
 
-def parse_line(tokens):
+def parse(tokens):
     # Tokens es la lista de tokens retornada por el lexer
     current_token = 0
     valid_program = True
