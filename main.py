@@ -9,7 +9,7 @@ def main():
     while True:
         text = input('Texto del programa> ')
         result, error = lexer.run('<current terminal input>', text)
-        parser = P0_parser.verificar_programa(text)
+        #parser = P0_parser.verificar_programa(text)
 
         if error:
             print(error.as_string())
@@ -17,10 +17,10 @@ def main():
         else:
             print(result)
             print('Programa válido para el robot:',P0_parser.parse_line(result))
-            if parser:
-                print('Programa valido')
-            if P0_parser.parse_line(result) == False:
-                sys.exit()
+            #if parser:
+            #    print('Programa valido')
+            #if P0_parser.parse_line(result) == False:
+            #    sys.exit()
 
 
 if __name__ == '__main__':
